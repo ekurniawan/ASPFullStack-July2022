@@ -6,5 +6,6 @@ namespace MyASPProject.Services
     {
         IEnumerable<Restaurant> GetAll();
         Restaurant GetById(int id);
+        Restaurant Add(Restaurant restaurant);
     }
 }
