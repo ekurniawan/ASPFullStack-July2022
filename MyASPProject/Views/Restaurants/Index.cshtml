@@ -3,7 +3,6 @@
     ViewData["Title"] = "List Of Restaurant";
 }
 
-
 <h1 class="mt-4">List Of Restaurant</h1>
 <ol class="breadcrumb mb-4">
     <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
@@ -21,15 +20,23 @@
                 <tr>
                     <td>ID</td>
                     <td>Name</td>
+                    <td>&nbsp;</td>
                 </tr>
                 @foreach (var item in Model.Restaurants)
                 {
                     <tr>
                         <td>@item.Id</td>
                         <td>@item.Name</td>
+                        <td><a asp-action="Details" asp-route-id="@item.Id">details</a></td>
                     </tr>
                 }
             </table>
+        </div>
+        <div class="col-md-6">
+            <address>
+                <strong>Support: </strong><email mail-to="info">Info</email>
+                <stong>Marketing: </stong><email mail-to="marketing">Marketing</email>
+            </address>
         </div>
     </div>
 </div>
