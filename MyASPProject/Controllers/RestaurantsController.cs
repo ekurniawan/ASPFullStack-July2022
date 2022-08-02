@@ -43,7 +43,7 @@ namespace MyASPProject.Controllers
             var model = _resto.GetById(id);
             if(model == null)
             {
-                TempData["pesan"] = $"<span class='alert alert-danger'>Data Restaurant dengan id {id} tidak deitemukan</span>";
+                TempData["pesan"] = $"<div class='alert alert-danger alert-dismissible fade show'>Data Restaurant dengan id {id} tidak deitemukan</div>";
                 return RedirectToAction(nameof(Index));
             }
             return View(model);
@@ -68,7 +68,7 @@ namespace MyASPProject.Controllers
                 _resto.Add(newResto);
 
                 TempData["pesan"] =
-                    $"<span class='alert alert-success'>Berhasil menambahkan data restaurant {model.Name}</span>";
+                    $"<div class='alert alert-success alert-dismissible fade show'><button type='button' class='btn-close' data-bs-dismiss='alert'></button> Berhasil menambahkan data restaurant {model.Name}</div>";
 
                 return RedirectToAction(nameof(Index));
             }

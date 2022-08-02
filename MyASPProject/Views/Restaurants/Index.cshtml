@@ -17,16 +17,12 @@
             @if (ViewData["pesan"] != null)
             {
                 @Html.Raw(ViewData["pesan"])
-                <br />
-
-                <br />
-
-                <br />
             }
             <table class="table table-striped">
                 <tr>
                     <td>ID</td>
                     <td>Name</td>
+                    <td>Cuisine</td>
                     <td>&nbsp;</td>
                 </tr>
                 @foreach (var item in Model.Restaurants)
@@ -34,7 +30,7 @@
                     <tr>
                         <td>@item.Id</td>
                         <td>@item.Name</td>
-                        <td><a asp-action="Details" asp-route-id="@item.Id">details</a></td>
+                        <partial name="_Summary" model="item" />
                     </tr>
                 }
             </table>
