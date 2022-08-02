@@ -7,11 +7,17 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+//menambahkan pengaturan Identity
+builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddDefaultUI().AddDefaultTokenProviders()
+    .AddEntityFrameworkStores<RestaurantDbContext>();
+
+/*builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddEntityFrameworkStores<RestaurantDbContext>();*/
+
 builder.Services.AddDbContext<RestaurantDbContext>(options => options.UseSqlServer(
         builder.Configuration.GetConnectionString("DefaultConnection")));
-//menambahkan pengaturan Identity
-builder.Services.AddIdentity<IdentityUser,IdentityRole>().AddDefaultUI().AddDefaultTokenProviders()
-    .AddEntityFrameworkStores<RestaurantDbContext>();
+
 
 builder.Services.AddScoped<IRestaurantData, SqlRestaurantData>();
 
@@ -29,11 +35,13 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+app.UseAuthentication();;
 
 app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+app.MapRazorPages();
 
 app.Run();
