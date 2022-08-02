@@ -54,5 +54,28 @@ namespace MyASPProject.Controllers
             return View();
         }
 
+
+        [HttpPost]
+        public IActionResult Create(RestaurantEditViewModel model)
+        {
+            if(ModelState.IsValid)
+            {
+                var newResto = new Restaurant()
+                {
+                    Name = model.Name,
+                    Cuisine = model.Cuisine
+                };
+                _resto.Add(newResto);
+
+                TempData["pesan"] =
+                    $"<span class='alert alert-success'>Berhasil menambahkan data restaurant {model.Name}</span>";
+
+                return RedirectToAction(nameof(Index));
+            }
+            else
+            {
+                return View();
+            }
+        }
     }
 }
