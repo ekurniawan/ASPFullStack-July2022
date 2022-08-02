@@ -9,7 +9,15 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 //menambahkan pengaturan Identity
-builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddDefaultUI().AddDefaultTokenProviders()
+builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
+{
+    options.Password.RequiredLength = 10;
+    options.Password.RequireDigit = false;
+    options.Password.RequireLowercase = false;
+    options.Password.RequireUppercase = false;
+    options.Password.RequireNonAlphanumeric = false;
+
+}).AddDefaultUI().AddDefaultTokenProviders()
     .AddEntityFrameworkStores<RestaurantDbContext>();
 
 builder.Services.AddDbContext<RestaurantDbContext>(options => options.UseSqlServer(
