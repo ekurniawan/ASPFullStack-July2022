@@ -1,10 +1,14 @@
+using Microsoft.EntityFrameworkCore;
+using MyASPProject.Data;
 using MyASPProject.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddSingleton<IRestaurantData, InMemoryRestaurantData>();
+builder.Services.AddDbContext<RestaurantDbContext>(options => options.UseSqlServer(
+        builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddScoped<IRestaurantData, SqlRestaurantData>();
 
 var app = builder.Build();
 
