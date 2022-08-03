@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using MyASPProject.Models;
 using MyASPProject.ViewModels;
 
 namespace MyASPProject.Controllers
@@ -7,9 +8,13 @@ namespace MyASPProject.Controllers
     public class AdminController : Controller
     {
         private readonly RoleManager<IdentityRole> _roleManager;
-        public AdminController(RoleManager<IdentityRole> roleManager)
+        private readonly UserManager<CustomIdentityUser> _userManager;
+
+        public AdminController(RoleManager<IdentityRole> roleManager,
+            UserManager<CustomIdentityUser> userManager)
         {
             _roleManager = roleManager;
+            _userManager = userManager;
         }
 
         public IActionResult CreateRole()
@@ -50,6 +55,32 @@ namespace MyASPProject.Controllers
         {
             var roles = _roleManager.Roles;
             return View(roles);
+        }
+
+        public async Task<IActionResult> EditRole(string id)
+        {
+            var role = await _roleManager.FindByIdAsync(id);
+            if(role==null)
+            {
+                ViewData["pesan"] = $"<div class='alert alert-danger alert-dismissible fade show'><button type='button' class='btn-close' data-bs-dismiss='alert'></button> Role tidak ditemukan</div>";
+                return View();
+            }
+
+            var model = new EditRoleViewModel
+            {
+                Id = role.Id,
+                RoleName = role.Name
+            };
+            
+            foreach(var user in _userManager.Users)
+            {
+                if(await _userManager.IsInRoleAsync(user,role.Name))
+                {
+                    model.Users.Add(user.UserName);
+                }
+            }
+
+            return View(model);
         }
     }
 }
