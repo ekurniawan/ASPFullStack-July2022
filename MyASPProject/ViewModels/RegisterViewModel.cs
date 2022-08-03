@@ -21,5 +21,14 @@ namespace MyASPProject.ViewModels
         [Compare("Password",ErrorMessage ="Password dan Confirm Password tidak sama")]
         public string ConfirmPassword { get; set; }
 
+        [Required]
+        public string FullName { get; set; }
+
+        [Required]
+        public string Address { get; set; }
+
+        [Required]
+        public string City { get; set; }
+
     }
 }

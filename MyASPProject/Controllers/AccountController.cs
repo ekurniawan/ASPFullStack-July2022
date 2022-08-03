@@ -36,7 +36,13 @@ namespace MyASPProject.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new IdentityUser { UserName = model.Email, Email = model.Email };
+                var user = new CustomIdentityUser { 
+                    UserName = model.Email, 
+                    Email = model.Email,
+                    FullName = model.FullName,
+                    Address = model.Address,
+                    City = model.City
+                };
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -89,12 +95,12 @@ namespace MyASPProject.Controllers
             return View(model);
         }
 
-        [AcceptVerbs("Get","Post")]
+        [AcceptVerbs("Get", "Post")]
         [AllowAnonymous]
         public async Task<IActionResult> IsEmailInUse(string email)
         {
             var user = await _userManager.FindByEmailAsync(email);
-            if(user == null)
+            if (user == null)
             {
                 return Json(true);
             }
