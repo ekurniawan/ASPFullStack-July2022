@@ -30,20 +30,20 @@ namespace MyASPProject.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateRole(CreateRoleViewModel model)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 IdentityRole myRole = new IdentityRole
                 {
                     Name = model.RoleName
                 };
                 var result = await _roleManager.CreateAsync(myRole);
-                if(result.Succeeded)
+                if (result.Succeeded)
                 {
-                    ViewData["pesan"] = 
-                        $"<div class='alert alert-success alert-dismissible fade show'><button type='button' class='btn-close' data-bs-dismiss='alert'></button> Berhasil menambahkan data role {model.RoleName}</div>"; 
+                    ViewData["pesan"] =
+                        $"<div class='alert alert-success alert-dismissible fade show'><button type='button' class='btn-close' data-bs-dismiss='alert'></button> Berhasil menambahkan data role {model.RoleName}</div>";
                 }
 
-                foreach(var error in result.Errors)
+                foreach (var error in result.Errors)
                 {
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
@@ -60,7 +60,7 @@ namespace MyASPProject.Controllers
         public async Task<IActionResult> EditRole(string id)
         {
             var role = await _roleManager.FindByIdAsync(id);
-            if(role==null)
+            if (role == null)
             {
                 ViewData["pesan"] = $"<div class='alert alert-danger alert-dismissible fade show'><button type='button' class='btn-close' data-bs-dismiss='alert'></button> Role tidak ditemukan</div>";
                 return View();
@@ -71,16 +71,64 @@ namespace MyASPProject.Controllers
                 Id = role.Id,
                 RoleName = role.Name
             };
-            
-            foreach(var user in _userManager.Users)
+
+            /*if (_userManager.Users.Any())
             {
-                if(await _userManager.IsInRoleAsync(user,role.Name))
+                foreach (var user in _userManager.Users)
                 {
-                    model.Users.Add(user.UserName);
+                    if (await _userManager.IsInRoleAsync(user, role.Name))
+                    {
+                        model.Users.Add(user.UserName);
+                    }
                 }
-            }
+            }*/
 
             return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditRole(EditRoleViewModel model)
+        {
+            var role = await _roleManager.FindByIdAsync(model.Id);
+            if(role==null)
+            {
+                ViewData["pesan"] = $"<div class='alert alert-danger alert-dismissible fade show'><button type='button' class='btn-close' data-bs-dismiss='alert'></button> Role tidak ditemukan</div>";
+                return View();
+            }
+            else
+            {
+                role.Name = model.RoleName;
+                var result = await _roleManager.UpdateAsync(role);
+                if(result.Succeeded)
+                {
+                    return RedirectToAction("ListRoles");
+                }
+                foreach(var error in result.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
+            }
+            return View(model);
+        }
+
+        public IActionResult AddUserToRole()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddUserToRole(AddUserToRoleViewModel model)
+        {
+            var user = await _userManager.FindByNameAsync(model.Username);
+            try
+            {
+                await _userManager.AddToRoleAsync(user, model.RoleName);
+                return RedirectToAction("ListRoles");
+            }
+            catch (Exception ex)
+            {
+                return View();
+            }
         }
     }
 }
