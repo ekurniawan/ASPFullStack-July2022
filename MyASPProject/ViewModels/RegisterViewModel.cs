@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc;
+using MyASPProject.Utilities;
+using System.ComponentModel.DataAnnotations;
 
 namespace MyASPProject.ViewModels
 {
@@ -6,6 +8,8 @@ namespace MyASPProject.ViewModels
     {
         [Required]
         [EmailAddress]
+        [Remote(action: "IsEmailInUse", controller: "Account")]
+        [ValidEmailDomain(allowedDomain:"rapidtech.id",ErrorMessage ="Domain harus rapidtech.id")]
         public string Email { get; set; }
 
         [Required]

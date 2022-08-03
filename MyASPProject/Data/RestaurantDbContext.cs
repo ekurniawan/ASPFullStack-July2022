@@ -4,7 +4,7 @@ using MyASPProject.Models;
 
 namespace MyASPProject.Data
 {
-    public class RestaurantDbContext : IdentityDbContext
+    public class RestaurantDbContext : IdentityDbContext<CustomIdentityUser>
     {
         public RestaurantDbContext(DbContextOptions options):base(options)  
         {

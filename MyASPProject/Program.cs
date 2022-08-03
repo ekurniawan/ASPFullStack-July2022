@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MyASPProject.Data;
+using MyASPProject.Models;
 using MyASPProject.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,16 +10,17 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 //menambahkan pengaturan Identity
-builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
+builder.Services.AddIdentity<CustomIdentityUser, IdentityRole>(options =>
 {
     options.Password.RequiredLength = 10;
     options.Password.RequireDigit = false;
     options.Password.RequireLowercase = false;
     options.Password.RequireUppercase = false;
     options.Password.RequireNonAlphanumeric = false;
-
 }).AddDefaultUI().AddDefaultTokenProviders()
     .AddEntityFrameworkStores<RestaurantDbContext>();
+
+builder.Services.ConfigureApplicationCookie(opt => opt.LoginPath = "/Account/Login");
 
 builder.Services.AddDbContext<RestaurantDbContext>(options => options.UseSqlServer(
         builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -39,8 +41,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-app.UseAuthentication();;
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
