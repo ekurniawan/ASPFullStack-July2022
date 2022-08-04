@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using MyASPProject.Models;
 using MyASPProject.ViewModels;
 
@@ -72,16 +73,19 @@ namespace MyASPProject.Controllers
                 RoleName = role.Name
             };
 
-            /*if (_userManager.Users.Any())
+            if (_userManager.Users.Any())
             {
-                foreach (var user in _userManager.Users)
+                var users = await _userManager.Users.ToListAsync();
+                model.Users = new List<string>();
+                foreach (var user in users)
                 {
+                    //model.Users.Add(user.UserName);
                     if (await _userManager.IsInRoleAsync(user, role.Name))
                     {
                         model.Users.Add(user.UserName);
                     }
                 }
-            }*/
+            }
 
             return View(model);
         }
