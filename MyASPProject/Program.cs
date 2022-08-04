@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MyASPProject.Data;
@@ -25,8 +26,15 @@ builder.Services.ConfigureApplicationCookie(opt => opt.LoginPath = "/Account/Log
 builder.Services.AddDbContext<RestaurantDbContext>(options => options.UseSqlServer(
         builder.Configuration.GetConnectionString("DefaultConnection")));
 
+//menambahkan claims
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("DeleteRolePolicy", policy => policy.RequireClaim("Delete Role"));
+});
+
 //builder.Services.AddScoped<IPengguna, PenggunaServices>();
 builder.Services.AddScoped<IRestaurantData, SqlRestaurantData>();
+builder.Services.AddScoped<ISamurai, SamuraiServices>();
 
 var app = builder.Build();
 
