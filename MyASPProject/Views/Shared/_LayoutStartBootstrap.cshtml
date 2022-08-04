@@ -57,10 +57,22 @@
                 <div class="sb-sidenav-menu">
                     <div class="nav">
                         <div class="sb-sidenav-menu-heading">Core</div>
-                        <a class="nav-link" asp-controller="Restaurants" asp-action="Index">
-                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                            Restaurants
-                        </a>
+                        @if (signInManager.IsSignedIn(User))
+                        {
+                            <a class="nav-link" asp-controller="Restaurants" asp-action="Index">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                List Restaurant
+                            </a>
+                        }
+
+                        @if(User.IsInRole("admin"))
+                        {
+                            <a class="nav-link" asp-controller="Restaurants" asp-action="Create">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                Add Restaurant
+                            </a>
+                        }
+
                         <div class="sb-sidenav-menu-heading">Interface</div>
                         <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                             <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>

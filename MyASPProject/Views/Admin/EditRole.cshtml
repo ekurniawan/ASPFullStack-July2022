@@ -42,7 +42,7 @@
                     {
                         <tr>
                             <td>@user</td>
-                            <td>delete</td>
+                            <td><a class="btn btn-danger btn-sm" asp-action="DeleteInRole" asp-route-id="@user" asp-route-role="@Model.RoleName">delete</a></td>
                         </tr>
                     }
                 </table>

@@ -134,5 +134,14 @@ namespace MyASPProject.Controllers
                 return View();
             }
         }
+
+        public async Task<IActionResult> DeleteInRole(string id,string role)
+        {
+            var user = await _userManager.FindByNameAsync(id);
+            await _userManager.RemoveFromRoleAsync(user, role);
+            var myRole = await _roleManager.FindByNameAsync(role);
+
+            return RedirectToAction("EditRole", new { id = myRole.Id });
+        }
     }
 }

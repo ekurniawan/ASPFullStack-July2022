@@ -59,9 +59,13 @@ namespace MyASPProject.Controllers
         }
 
         [AllowAnonymous]
-        public IActionResult Login(string returnUrl)
+        public IActionResult Login(string? returnUrl)
         {
-            ViewBag.returnUrl = returnUrl;
+            if(!string.IsNullOrEmpty(returnUrl))
+            {
+                ViewBag.returnUrl = returnUrl;
+            }
+            
             return View();
         }
 
@@ -73,7 +77,7 @@ namespace MyASPProject.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public async Task<IActionResult> Login(LoginViewModel model, string returnUrl)
+        public async Task<IActionResult> Login(LoginViewModel model, string? returnUrl)
         {
             if (ModelState.IsValid)
             {
