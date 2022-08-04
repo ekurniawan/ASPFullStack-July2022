@@ -13,15 +13,8 @@ namespace MyASPProject.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var results = await _samurai.GetAll();
-            string strResult = string.Empty;
-            foreach(var result in results)
-            {
-                strResult += result.Name + "\n";
-            }
-
-            return Content(strResult);
-            //return View();
+            var model = await _samurai.GetAll();
+            return View(model);
         }
     }
 }
