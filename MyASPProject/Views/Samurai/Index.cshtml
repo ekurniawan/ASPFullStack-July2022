@@ -13,6 +13,12 @@
 <div class="card mb-4">
     <div class="card-body">
         <div class="col-md-6">
+            <div>
+                @if (ViewData["pesan"] != null)
+                {
+                    @Html.Raw(ViewData["pesan"])
+                }
+            </div>
             <p>
                 <a asp-action="Create">Create New</a>
             </p>
@@ -39,8 +45,10 @@
                                 @Html.DisplayFor(modelItem => item.Name)
                             </td>
                             <td>
-                                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                                <a class="btn btn-warning btn-sm" asp-action="Update"
+                               asp-route-id="@item.Id">update</a> &nbsp; &nbsp;
+                                <a class="btn btn-primary btn-sm" asp-action="Details"
+                               asp-route-id="@item.Id">details</a> &nbsp;
                                 @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
                             </td>
                         </tr>

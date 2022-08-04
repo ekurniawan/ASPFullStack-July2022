@@ -6,5 +6,6 @@ namespace MyASPProject.Services
     {
         Task<IEnumerable<Samurai>> GetAll(); 
         Task<Samurai> GetById(int id);
+        Task<Samurai> Insert(Samurai obj);
     }
 }
