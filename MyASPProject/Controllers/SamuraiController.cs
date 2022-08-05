@@ -12,12 +12,26 @@ namespace MyASPProject.Controllers
             _samurai = samurai;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string? name)
         {
 
             ViewData["pesan"] = TempData["pesan"] ?? TempData["pesan"];
+            IEnumerable<Samurai> model;
+            if (name == null)
+            {
+                model = await _samurai.GetAll();
+            }
+            else
+            {
+                model = await _samurai.GetByName(name);
+            }
+            
+            return View(model);
+        }
 
-            var model = await _samurai.GetAll();
+        public async Task<IActionResult> WithQuote()
+        {
+            var model = await _samurai.GetSamuraiWithQuotes();
             return View(model);
         }
 

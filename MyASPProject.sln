@@ -5,6 +5,8 @@ VisualStudioVersion = 17.2.32616.157
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyASPProject", "MyASPProject\MyASPProject.csproj", "{5849A3D1-C32C-4B36-9DAF-10DE06CE3B45}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyIdentityProvider", "MyIdentityProvider\MyIdentityProvider.csproj", "{AE06B1DA-C894-4BAD-ADFB-5E8F956212B1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{5849A3D1-C32C-4B36-9DAF-10DE06CE3B45}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5849A3D1-C32C-4B36-9DAF-10DE06CE3B45}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5849A3D1-C32C-4B36-9DAF-10DE06CE3B45}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE06B1DA-C894-4BAD-ADFB-5E8F956212B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE06B1DA-C894-4BAD-ADFB-5E8F956212B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE06B1DA-C894-4BAD-ADFB-5E8F956212B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE06B1DA-C894-4BAD-ADFB-5E8F956212B1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

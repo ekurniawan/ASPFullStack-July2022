@@ -49,6 +49,34 @@ namespace MyASPProject.Services
             return samurai;
         }
 
+        public async Task<IEnumerable<SamuraiWithQuotes>> GetSamuraiWithQuotes()
+        {
+            List<SamuraiWithQuotes> samurais = new List<SamuraiWithQuotes>();
+            using (var httpClient = new HttpClient())
+            {
+                using (var response = await httpClient.GetAsync("http://localhost:5001/api/Samurais/WithQuotes"))
+                {
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                    samurais = JsonConvert.DeserializeObject<List<SamuraiWithQuotes>>(apiResponse);
+                }
+            }
+            return samurais;
+        }
+
+        public async Task<IEnumerable<Samurai>> GetByName(string name)
+        {
+            List<Samurai> samurais = new List<Samurai>();
+            using (var httpClient = new HttpClient())
+            {
+                using (var response = await httpClient.GetAsync($"http://localhost:5001/api/Samurais/ByName?name={name}"))
+                {
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                    samurais = JsonConvert.DeserializeObject<List<Samurai>>(apiResponse);
+                }
+            }
+            return samurais;
+        }
+
         public async Task<Samurai> Insert(Samurai obj)
         {
             Samurai samurai = new Samurai();

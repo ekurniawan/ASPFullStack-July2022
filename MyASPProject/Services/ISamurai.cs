@@ -9,5 +9,7 @@ namespace MyASPProject.Services
         Task<Samurai> Insert(Samurai obj);
         Task<Samurai> Update(Samurai obj);
         Task Delete(int id);
+        Task<IEnumerable<Samurai>> GetByName(string name);
+        Task<IEnumerable<SamuraiWithQuotes>> GetSamuraiWithQuotes();
     }
 }
