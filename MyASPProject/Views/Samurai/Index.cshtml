@@ -49,7 +49,8 @@
                                asp-route-id="@item.Id">update</a> &nbsp; &nbsp;
                                 <a class="btn btn-primary btn-sm" asp-action="Details"
                                asp-route-id="@item.Id">details</a> &nbsp;
-                                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                                <a class="btn btn-danger btn-sm" asp-action="Delete"
+                               asp-route-id="@item.Id">delete</a>
                             </td>
                         </tr>
                     }

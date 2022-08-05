@@ -6,6 +6,18 @@ namespace MyASPProject.Services
 {
     public class SamuraiServices : ISamurai
     {
+        public async Task Delete(int id)
+        {
+            using(var httpClient = new HttpClient())
+            {
+                using (var response = await httpClient.DeleteAsync($"http://localhost:5001/api/Samurais/{id}"))
+                {
+                    if (response.StatusCode != System.Net.HttpStatusCode.OK)
+                        throw new Exception($"Gagal untuk delete data");
+                }
+            }
+        }
+
         public async Task<IEnumerable<Samurai>> GetAll()
         {
             List<Samurai> samurais = new List<Samurai>();
