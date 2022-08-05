@@ -60,6 +60,8 @@ builder.Services.AddCors(options =>
     });
 });
 
+builder.Services.AddScoped<IUser, UserDAL>();
+
 
 var app = builder.Build();
 
