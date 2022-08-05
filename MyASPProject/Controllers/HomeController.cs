@@ -16,6 +16,11 @@ namespace MyASPProject.Controllers
 
         public IActionResult Index()
         {
+            if(string.IsNullOrEmpty(HttpContext.Session.GetString("token")))
+            {
+                HttpContext.Session.SetString("token", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6ImVyaWNrQHJhcGlkdGVjaC5pZCIsIm5iZiI6MTY1OTY4OTY2NCwiZXhwIjoxNjU5NjkzMjY0LCJpYXQiOjE2NTk2ODk2NjR9.7f5FAPfV4WiAHSVmQyP9RiHBCjKX0Y55o37zrr7eHGA");
+            }
+
             return View();
         }
 

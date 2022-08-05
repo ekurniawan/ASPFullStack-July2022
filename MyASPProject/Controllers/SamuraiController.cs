@@ -109,7 +109,13 @@ namespace MyASPProject.Controllers
 
         public async Task<IActionResult> GetWeather()
         {
-            var model = await _samurai.GetAllWeather();
+            string myToken = string.Empty;
+            if (!string.IsNullOrEmpty(HttpContext.Session.GetString("token")))
+            {
+                myToken = HttpContext.Session.GetString("token");
+            }
+
+                var model = await _samurai.GetAllWeather(myToken);
 
             return View(model);
         }

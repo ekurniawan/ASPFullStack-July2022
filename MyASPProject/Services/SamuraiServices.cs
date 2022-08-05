@@ -114,12 +114,12 @@ namespace MyASPProject.Services
             return samurai;
         }
 
-        public async Task<IEnumerable<Weather>> GetAllWeather()
+        public async Task<IEnumerable<Weather>> GetAllWeather(string token)
         {
             List<Weather> lstWeather = new List<Weather>();
             using(var httpClient = new HttpClient())
             {
-                httpClient.DefaultRequestHeaders.TryAddWithoutValidation("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6ImVyaWNrQHJhcGlkdGVjaC5pZCIsIm5iZiI6MTY1OTY4OTY2NCwiZXhwIjoxNjU5NjkzMjY0LCJpYXQiOjE2NTk2ODk2NjR9.7f5FAPfV4WiAHSVmQyP9RiHBCjKX0Y55o37zrr7eHGA");
+                httpClient.DefaultRequestHeaders.TryAddWithoutValidation("Authorization", $"{token}");
                 using (var response = await httpClient.GetAsync("https://localhost:6001/WeatherForecast"))
                 {
                     if(response.StatusCode==System.Net.HttpStatusCode.OK)

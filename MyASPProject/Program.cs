@@ -21,6 +21,13 @@ builder.Services.AddIdentity<CustomIdentityUser, IdentityRole>(options =>
 }).AddDefaultUI().AddDefaultTokenProviders()
     .AddEntityFrameworkStores<RestaurantDbContext>();
 
+builder.Services.AddSession(options =>
+{
+    options.Cookie.Name = "mysession.frontend";
+    options.IdleTimeout = TimeSpan.FromMinutes(2);
+    options.Cookie.IsEssential = true;
+});
+
 builder.Services.ConfigureApplicationCookie(opt => opt.LoginPath = "/Account/Login");
 
 builder.Services.AddDbContext<RestaurantDbContext>(options => options.UseSqlServer(
@@ -52,6 +59,8 @@ app.UseStaticFiles();
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseSession();
 
 app.MapControllerRoute(
     name: "default",
