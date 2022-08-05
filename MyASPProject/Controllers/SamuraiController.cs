@@ -105,5 +105,13 @@ namespace MyASPProject.Controllers
                 return View();
             }
         }
+
+
+        public async Task<IActionResult> GetWeather()
+        {
+            var model = await _samurai.GetAllWeather();
+
+            return View(model);
+        }
     } 
 }

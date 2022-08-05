@@ -11,5 +11,6 @@ namespace MyASPProject.Services
         Task Delete(int id);
         Task<IEnumerable<Samurai>> GetByName(string name);
         Task<IEnumerable<SamuraiWithQuotes>> GetSamuraiWithQuotes();
+        Task<IEnumerable<Weather>> GetAllWeather();
     }
 }
